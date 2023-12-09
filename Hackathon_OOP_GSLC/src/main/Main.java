@@ -41,7 +41,7 @@ public class Main {
 			nim=scan.nextLine();
 		}while(!isNumeric(nim));
 		do {
-			System.out.println("add team: ");
+			System.out.print("add team: ");
 				team = scan.nextLine();					
 		}while(team.isEmpty());
 		Integer teamID=-1;
@@ -71,7 +71,7 @@ public class Main {
 	public void insert() {
 		do {
 			pick2=-1;
-			System.out.println("Which table to insert? 1. User, 2. Team.");
+			System.out.print("Which table to insert? 1. User, 2. Team.\n>> ");
 			try {
 				pick2 = scan.nextInt();
 			} catch (Exception e) {
@@ -91,7 +91,7 @@ public class Main {
 			pick=-1;
 			System.out.println("1. Insert Data");
 			System.out.println("2. Show Data");
-			System.out.println("3. Exit");
+			System.out.print("3. Exit\n>> ");
 			try {
 				pick= scan.nextInt();				
 			} catch (Exception e) {
