@@ -1,5 +1,6 @@
 package models;
 
+
 public abstract class Model {
 	private String nama;
 	public Model(String nama) {
