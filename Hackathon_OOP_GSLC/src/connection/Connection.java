@@ -5,6 +5,10 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import models.Team;
+import models.User;
 
 public class Connection {
 	private static Connection connection_instance;
@@ -20,10 +24,10 @@ public class Connection {
 		return connection_instance;
 	}
 	
-	public void writeFileUser(Integer nim,String nama, Integer team) {
+	public void writeFileUser(String nim,String nama, Integer team) {
 		try {
 			BufferedWriter tulis = new BufferedWriter(new FileWriter("user.csv",true));
-			tulis.write(String.format("%d,%s,%d\n", nim,nama,team));
+			tulis.write(String.format("%s,%s,%d\n", nim,nama,team));
 			tulis.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -40,7 +44,7 @@ public class Connection {
 		}
 	}
 	
-	public void readFileUser() {
+	public void readFileUser(ArrayList<User> user) {
 		BufferedReader baca;
 		try {
 			baca = new BufferedReader(new FileReader("user.csv"));
@@ -48,7 +52,10 @@ public class Connection {
 			baca.readLine();
 			while((read = baca.readLine())!=null) {
 				String temp[] = read.split(",");
-				
+				String nama = temp[0];
+				String nim = temp[1];
+				Integer teamID = Integer.parseInt(temp[2]);
+				user.add(new User(nama, nim, teamID));
 			}
 			baca.close();
 		} catch (IOException e) {
@@ -56,8 +63,22 @@ public class Connection {
 		}
 	}
 	
-	public void readFileTeam() {
-		
+	public void readFileTeam(ArrayList<Team> team) {
+		BufferedReader baca;
+		try {
+			baca = new BufferedReader(new FileReader("teams.csv"));
+			String read;
+			baca.readLine();
+			while((read = baca.readLine())!=null) {
+				String temp[] = read.split(",");
+				Integer id = Integer.parseInt(temp[0]);
+				String nama = temp[1];
+				System.out.println("id: " + id + ", nama: " + nama);
+				team.add(new Team(id, nama));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

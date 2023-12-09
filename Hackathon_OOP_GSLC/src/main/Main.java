@@ -16,6 +16,9 @@ public class Main {
 	public void show() {
 		
 	}
+	public static boolean isNumeric(String str) {
+        return str.matches("\\d+");
+    }
 	
 	public void insertTeam() {
 		String name;
@@ -23,34 +26,30 @@ public class Main {
 			System.out.print("add name: ");
 			name = scan.nextLine();			
 		}while(name.isEmpty());
-		ci.readFileTeam();
+		ci.readFileTeam(teams);
 		ci.writeFileTeam(teams.size()+1, name);
 	}
 	
 	public void insertUser() {
-		String name,team;
-		Integer nim=0;
+		String name,team, nim;
 		do {
 			System.out.print("add name: ");
 			name = scan.nextLine();			
 		}while(name.isEmpty());
 		System.out.print("add nim: ");
 		do {
-			try {
-				nim =scan.nextInt();
-			} catch (Exception e) {
-			}			
-			scan.nextLine();
-		}while(nim==0);
+			nim=scan.nextLine();
+		}while(!isNumeric(nim));
 		do {
 			System.out.println("add team: ");
 				team = scan.nextLine();					
 		}while(team.isEmpty());
 		Integer teamID=-1;
-		ci.readFileTeam();
+		ci.readFileTeam(teams);
 		for(int i=0;i<teams.size();i++) {
 			if(team.equals(teams.get(i).getNama())) {
 				teamID=teams.get(i).getId();
+				System.out.println("masuk " + teamID);
 			}
 		}
 		if(teamID==-1) {

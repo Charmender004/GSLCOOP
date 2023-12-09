@@ -2,7 +2,7 @@ package models;
 
 public class Team extends Model{
 	private Integer id;
-	public Team(String nama, Integer id) {
+	public Team(Integer id, String nama) {
 		super(nama);
 		this.id =id;
 	}

@@ -1,18 +1,19 @@
 package models;
 
 public class User extends Model{
-	private Integer nim,teamID;
-	public User(String nama,Integer nim, Integer teamID) {
+	private String nim;
+	private Integer teamID;
+	public User(String nama,String nim, Integer teamID) {
 		super(nama);
 		this.nim = nim;
 		this.teamID = teamID;
 	}
 
-	public synchronized Integer getNim() {
+	public synchronized String getNim() {
 		return nim;
 	}
 
-	public synchronized void setNim(Integer nim) {
+	public synchronized void setNim(String nim) {
 		this.nim = nim;
 	}
 
