@@ -27,6 +27,12 @@ public class Main {
 			name = scan.nextLine();			
 		}while(name.isEmpty());
 		ci.readFileTeam(teams);
+		for(int i=0;i<teams.size();i++) {
+			if(teams.get(i).getNama().equals(name)) {
+				System.out.println("Team "+ name + " has already created!");
+				return;
+			}
+		}
 		ci.writeFileTeam(teams.size()+1, name);
 	}
 	
