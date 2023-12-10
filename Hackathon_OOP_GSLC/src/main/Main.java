@@ -1,79 +1,52 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import connection.Connection;
-import models.Team;
-import models.User;
+import jdk.jshell.spi.ExecutionControl.UserException;
+import repositories.teamRepository;
+import repositories.userRepository;
 
 public class Main {
-	public Connection ci =  Connection.get_instance();
-	Scanner scan = new Scanner(System.in);
+	public static Scanner scan = new Scanner(System.in);
 	int pick, pick2;
-	ArrayList<Team> teams = new ArrayList<>();
-	ArrayList<User> users = new ArrayList<>();
+	Connection main_connection = Connection.get_instance();
+	public void clearConsole() {
+		for (int i = 0; i < 25; i++) {
+			System.out.println();
+		}
+	}
+	
 	public void show() {
-		
+		Integer choices = 0;
+		Boolean rightInput = false;
+		do {
+			System.out.print("Which table to show? 1. User, 2. Team.\n>> ");
+			try {
+				choices = scan.nextInt();
+				scan.nextLine();
+				switch (choices) {
+				case 1:
+					rightInput = true;
+					break;
+
+				case 2:
+					rightInput = true;
+					break;
+				}
+				if(rightInput) {
+					break;
+				}
+			} catch (Exception e) {
+				System.out.println("Wrong Input");
+				scan.nextLine();
+			}
+		} while (true);
+
 	}
 	public static boolean isNumeric(String str) {
         return str.matches("\\d+");
     }
-	
-	public void insertTeam() {
-		String name;
-		do {
-			System.out.print("add name: ");
-			name = scan.nextLine();			
-		}while(name.isEmpty());
-		ci.readFileTeam(teams);
-		for(int i=0;i<teams.size();i++) {
-			if(teams.get(i).getNama().equals(name)) {
-				System.out.println("Team "+ name + " has already created!");
-				return;
-			}
-		}
-		ci.writeFileTeam(teams.size()+1, name);
-	}
-	
-	public void insertUser() {
-		String name,team, nim;
-		do {
-			System.out.print("add name: ");
-			name = scan.nextLine();			
-		}while(name.isEmpty());
-		System.out.print("add nim: ");
-		do {
-			nim=scan.nextLine();
-		}while(!isNumeric(nim));
-		do {
-			System.out.print("add team: ");
-				team = scan.nextLine();					
-		}while(team.isEmpty());
-		Integer teamID=-1;
-		ci.readFileTeam(teams);
-		for(int i=0;i<teams.size();i++) {
-			if(team.equals(teams.get(i).getNama())) {
-				teamID=teams.get(i).getId();
-			}
-		}
-		if(teamID==-1) {
-			ci.writeFileTeam(teams.size()+1, team);
-			ci.writeFileUser(nim, name, teams.size()+1);
-			return;
-		}
-		int jumlah=0;
-		for(int i=0;i<users.size();i++) {
-			if(teamID==users.get(i).getTeamID()) {
-				jumlah++;
-			}
-		}
-		if(jumlah==3) {
-			System.out.println("Error: Team full.");
-		}else {
-			ci.writeFileUser(nim, name, teamID);									
-		}
-	}
 	
 	public void insert() {
 		do {
@@ -85,16 +58,19 @@ public class Main {
 			}
 			scan.nextLine();
 			if(pick2==1) {
-				insertUser();
+				userRepository.insert();
 			}else if(pick2==2) {
-				insertTeam();
+				teamRepository.insert();;
 			}
 		}while(pick2<1 && pick2>2);
 		
 	}
 	
 	public Main() {
+		main_connection.readFileTeam(teamRepository.teams);
+		main_connection.readFileUser(userRepository.users);
 		do {
+			clearConsole();
 			pick=-1;
 			System.out.println("1. Insert Data");
 			System.out.println("2. Show Data");
@@ -105,8 +81,10 @@ public class Main {
 			}
 			scan.nextLine();
 			if(pick==1) {
+				clearConsole();
 				insert();
 			}else if(pick==2) {
+				clearConsole();
 				show();
 			}
 		}while(pick!=3);

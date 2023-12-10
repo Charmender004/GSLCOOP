@@ -1,5 +1,7 @@
 package models;
 
+import repositories.userRepository;
+
 public class User extends Model{
 	private String nim;
 	private Integer teamID;
@@ -8,7 +10,7 @@ public class User extends Model{
 		this.nim = nim;
 		this.teamID = teamID;
 	}
-
+	
 	public synchronized String getNim() {
 		return nim;
 	}
@@ -24,6 +26,8 @@ public class User extends Model{
 	public synchronized void setTeamID(Integer teamID) {
 		this.teamID = teamID;
 	}
+	
+
 
 	@Override
 	public void print() {
