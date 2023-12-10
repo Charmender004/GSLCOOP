@@ -3,6 +3,7 @@ package repositories;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import connection.Connection;
 import main.Main;
 import models.Team;
 import models.User;
@@ -11,29 +12,22 @@ public class userRepository extends Repository{
 	static ArrayList<Team> teams  = teamRepository.teams;
 	public static ArrayList<User> users = new ArrayList<>();
 	static Scanner scan = Main.scan;
-	 public static void find() {
-	    for (User user : users) {
-			System.out.println(user.getNama());
+	
+	public static void find() {
+		if(!condition) {
+			for (User user : users) {
+				System.out.println(user.getNama());
+			}
 		}
-	    scan.nextLine();
-    }
+	}
+	
 	public static void findOne() {
 	    	
 	}
-	public static void insert() {
-		String name,team, nim;
-		do {
-			System.out.print("add name: ");
-			name = scan.nextLine();			
-		}while(name.isEmpty());
-		do {
-			System.out.print("add nim: ");
-			nim=scan.nextLine();
-		}while(!nim.matches("\\d+"));
-		do {
-			System.out.print("add team: ");
-			team = scan.nextLine();					
-		}while(team.isEmpty());
+	public static void insert(String[] userAttribute, Connection ci) {
+		String name = userAttribute[0];
+		String nim = userAttribute[1];
+	    String team = userAttribute[2];
 		Integer teamID=-1;
 		for(int i=0;i<teams.size();i++) {
 			if(team.equals(teams.get(i).getNama())) {
@@ -52,7 +46,8 @@ public class userRepository extends Repository{
 			}
 		}
 		if(jumlah==3) {
-			System.out.println("Error: Team full.");
+			System.out.println("Error: Team full.\nPress enter to continue...");
+			scan.nextLine();
 		}else {
 			ci.writeFileUser(nim, name, teamID);									
 		}

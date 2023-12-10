@@ -27,7 +27,7 @@ public class Main {
 				switch (choices) {
 				case 1:
 					rightInput = true;
-					userRepository.find();
+					userRepository.show();
 					break;
 
 				case 2:
@@ -55,9 +55,27 @@ public class Main {
 			}
 			scan.nextLine();
 			if(pick2==1) {
-				userRepository.insert();
+				String[] userAttribute = new String[3];
+				do {
+					System.out.print("add name: ");
+					userAttribute[0] = scan.nextLine();			
+				}while(userAttribute[0].isEmpty());
+				do {
+					System.out.print("add nim: ");
+					userAttribute[1]=scan.nextLine();
+				}while(!userAttribute[1].matches("\\d+"));
+				do {
+					System.out.print("add team: ");
+					userAttribute[2] = scan.nextLine();					
+				}while(userAttribute[2].isEmpty());
+				userRepository.insert(userAttribute, main_connection);
 			}else if(pick2==2) {
-				teamRepository.insert();;
+				String[] teamAttribute = new String[1];
+				do {
+					System.out.print("add name: ");
+					teamAttribute[0] = scan.nextLine();			
+				}while(teamAttribute[0].isEmpty());
+				teamRepository.insert(teamAttribute, main_connection);
 			}
 		}while(pick2<1 && pick2>2);
 		

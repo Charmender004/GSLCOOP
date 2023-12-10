@@ -3,6 +3,7 @@ package repositories;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import connection.Connection;
 import main.Main;
 import models.Team;
 
@@ -16,12 +17,8 @@ public class teamRepository extends Repository{
 	public static void findOne() {
 	    	
 	}
-	public static void insert() {
-		String name;
-		do {
-			System.out.print("add name: ");
-			name = scan.nextLine();			
-		}while(name.isEmpty());
+	public static void insert(String []teamAtttribute, Connection ci) {
+		String name = teamAtttribute[0];
 		for(int i=0;i<teams.size();i++) {
 			if(teams.get(i).getNama().equals(name)) {
 				System.out.println("Team "+ name + " has already created!");
