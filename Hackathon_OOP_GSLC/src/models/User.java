@@ -1,7 +1,5 @@
 package models;
 
-import repositories.userRepository;
-
 public class User extends Model{
 	private String nim;
 	private Integer teamID;

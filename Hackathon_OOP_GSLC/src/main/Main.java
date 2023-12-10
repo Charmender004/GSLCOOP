@@ -3,7 +3,6 @@ package main;
 import java.util.Scanner;
 
 import connection.Connection;
-import jdk.jshell.spi.ExecutionControl.UserException;
 import repositories.teamRepository;
 import repositories.userRepository;
 
@@ -44,9 +43,6 @@ public class Main {
 		} while (true);
 
 	}
-	public static boolean isNumeric(String str) {
-        return str.matches("\\d+");
-    }
 	
 	public void insert() {
 		do {
@@ -91,7 +87,6 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		new Main();
 	}
 

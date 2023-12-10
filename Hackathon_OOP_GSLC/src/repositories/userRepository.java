@@ -23,13 +23,13 @@ public class userRepository extends Repository{
 			System.out.print("add name: ");
 			name = scan.nextLine();			
 		}while(name.isEmpty());
-		System.out.print("add nim: ");
 		do {
+			System.out.print("add nim: ");
 			nim=scan.nextLine();
 		}while(!nim.matches("\\d+"));
 		do {
 			System.out.print("add team: ");
-				team = scan.nextLine();					
+			team = scan.nextLine();					
 		}while(team.isEmpty());
 		Integer teamID=-1;
 		for(int i=0;i<teams.size();i++) {
