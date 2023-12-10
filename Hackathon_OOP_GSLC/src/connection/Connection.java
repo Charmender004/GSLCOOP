@@ -73,7 +73,6 @@ public class Connection {
 				String temp[] = read.split(",");
 				Integer id = Integer.parseInt(temp[0]);
 				String nama = temp[1];
-				System.out.println("id: " + id + ", nama: " + nama);
 				team.add(new Team(id, nama));
 			}
 		} catch (IOException e) {

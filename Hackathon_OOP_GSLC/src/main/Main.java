@@ -49,11 +49,12 @@ public class Main {
 		for(int i=0;i<teams.size();i++) {
 			if(team.equals(teams.get(i).getNama())) {
 				teamID=teams.get(i).getId();
-				System.out.println("masuk " + teamID);
 			}
 		}
 		if(teamID==-1) {
-			System.out.println("Error: No team registered with that team name");
+			ci.writeFileTeam(teams.size()+1, team);
+			ci.writeFileUser(nim, name, teams.size()+1);
+			return;
 		}
 		int jumlah=0;
 		for(int i=0;i<users.size();i++) {
