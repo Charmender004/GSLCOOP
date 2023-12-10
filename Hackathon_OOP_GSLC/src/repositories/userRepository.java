@@ -12,7 +12,10 @@ public class userRepository extends Repository{
 	public static ArrayList<User> users = new ArrayList<>();
 	static Scanner scan = Main.scan;
 	 public static void find() {
-	    	
+	    for (User user : users) {
+			System.out.println(user.getNama());
+		}
+	    scan.nextLine();
     }
 	public static void findOne() {
 	    	

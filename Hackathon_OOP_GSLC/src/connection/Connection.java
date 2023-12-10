@@ -52,8 +52,8 @@ public class Connection {
 			baca.readLine();
 			while((read = baca.readLine())!=null) {
 				String temp[] = read.split(",");
-				String nama = temp[0];
-				String nim = temp[1];
+				String nama = temp[1];
+				String nim = temp[0];
 				Integer teamID = Integer.parseInt(temp[2]);
 				user.add(new User(nama, nim, teamID));
 			}

@@ -27,6 +27,7 @@ public class Main {
 				switch (choices) {
 				case 1:
 					rightInput = true;
+					userRepository.find();
 					break;
 
 				case 2:
