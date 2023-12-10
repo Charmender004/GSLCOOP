@@ -1,5 +1,8 @@
 package repositories;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,17 +16,53 @@ public class userRepository extends Repository{
 	public static ArrayList<User> users = new ArrayList<>();
 	static Scanner scan = Main.scan;
 	
-	public static void find() {
+	public static Object find(String variable, String[]query, String tableJoinName, Connection con) {
 		if(!condition) {
-			for (User user : users) {
-				System.out.println(user.getNama());
-			}
+			return users;
 		}
+		BufferedReader baca;
+		try {
+			baca = new BufferedReader(new FileReader("user.csv"));
+			String read;
+			baca.readLine();
+			String benchmark = null;
+			while((read = baca.readLine())!=null) {
+				String temp[] = read.split(",");
+				String nama = temp[1];
+				String nim = temp[0];
+				String teamID = temp[2];
+				switch (variable) {
+				case "name":
+					benchmark = nama;
+					break;
+				case "nim":
+					benchmark = nim;
+					break;
+				case "teamId":
+					benchmark = teamID;
+					break;
+				}
+				switch (query[0]) {
+				case "$":
+					if(benchmark.toLowerCase().contains(query[1].toLowerCase())) {
+						
+					}
+					break;
+
+				case "=":
+					if(benchmark.toLowerCase() == query[1].toLowerCase()) {
+						
+					}
+					break;
+				}
+			}
+			baca.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 	
-	public static void findOne() {
-	    	
-	}
 	public static void insert(String[] userAttribute, Connection ci) {
 		String name = userAttribute[0];
 		String nim = userAttribute[1];

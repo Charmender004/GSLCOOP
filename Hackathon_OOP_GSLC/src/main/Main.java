@@ -27,11 +27,12 @@ public class Main {
 				switch (choices) {
 				case 1:
 					rightInput = true;
-					userRepository.show();
+					userRepository.show("User");
 					break;
 
 				case 2:
 					rightInput = true;
+					userRepository.show("Team");
 					break;
 				}
 				if(rightInput) {

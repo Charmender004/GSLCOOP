@@ -11,11 +11,8 @@ public class teamRepository extends Repository{
 	
 	public static ArrayList<Team> teams = new ArrayList<>();
 	static Scanner scan = Main.scan;
-	public static void find() {
-	    	
-    }
-	public static void findOne() {
-	    	
+	public static Object find() {
+		return null;
 	}
 	public static void insert(String []teamAtttribute, Connection ci) {
 		String name = teamAtttribute[0];
