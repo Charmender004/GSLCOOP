@@ -46,8 +46,26 @@ public class teamRepository extends Repository{
 							contain.add(id + ";" + nama);
 						}
 						else if(join == true) {
-							User user = users.get(Integer.parseInt(id));
-							contain.add(id + ";" + nama + ";" + user.getNama() + ";" + user.getNim());
+							if(variable.equalsIgnoreCase("id")) {		
+								for (User user : users) {
+									if (user.getTeamID().equals(Integer.parseInt(id))) {
+										contain.add(id + ";" + nama + ";" + user.getNama() + ";" + user.getNim());
+									}
+								}
+							}
+							else {
+								int teamIndex = -1;
+					            for (int i = 0; i < teams.size(); i++) {
+					                if (teams.get(i).getNama().equalsIgnoreCase(nama)) {
+					                    teamIndex = i;
+					                    for (User user : users) {
+											if (user.getTeamID().equals(teamIndex)) {
+												contain.add(id + ";" + nama + ";" + user.getNama() + ";" + user.getNim());
+											}
+										}
+					                }
+					            }
+							}
 						}
 					}
 					break;
@@ -58,8 +76,26 @@ public class teamRepository extends Repository{
 							contain.add(id + ";" + nama);
 						}
 						else if(join == true) {
-							User user = users.get(Integer.parseInt(id));
-							contain.add(id + ";" + nama + ";" + user.getNama() + ";" + user.getNim());
+							if(variable.equalsIgnoreCase("id")) {		
+								for (User user : users) {
+									if (user.getTeamID().equals(Integer.parseInt(id))) {
+										contain.add(id + ";" + nama + ";" + user.getNama() + ";" + user.getNim());
+									}
+								}
+							}
+							else {
+								int teamIndex = -1;
+					            for (int i = 0; i < teams.size(); i++) {
+					                if (teams.get(i).getNama().equalsIgnoreCase(nama)) {
+					                    teamIndex = i;
+					                    for (User user : users) {
+											if (user.getTeamID().equals(teamIndex)) {
+												contain.add(id + ";" + nama + ";" + user.getNama() + ";" + user.getNim());
+											}
+										}
+					                }
+					            }
+							}
 						}
 					}
 					break;
@@ -69,9 +105,6 @@ public class teamRepository extends Repository{
 			baca.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		for(int i = 0; i < contain.size(); i++) {
-			System.out.println(contain.get(i));
 		}
 		return contain;
 	}

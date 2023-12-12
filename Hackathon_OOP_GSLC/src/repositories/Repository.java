@@ -13,21 +13,30 @@ public abstract class Repository {
 	protected static boolean condition = false;
 	static ArrayList<Object> list = new ArrayList<>();
 	
-	private static void query() {
-		System.out.println("format : [variabel];[operator];[determine value];[Join Table];[Table Name]");
-		System.out.println("example : name;=;kevin;true;Team");
-		System.out.println("operator list:");
-		System.out.println("1. '=' 	: equal");
-		System.out.println("2. '$' 	: contain");
-		System.out.println("3. '1' 	: only one");
-		System.out.print("add condition, separate by semicolon. \n>> ");
-		String query = scan.nextLine();
-		String temp[] = query.split(";");
-		String variable = temp[0];
-		String operator = temp[1];
-		String value = temp[2];
-		String join = temp[3];
-		String table = temp[4];
+	private static void query(String context) {
+		Boolean valid;
+		String variable, operator, value, join, table;
+		do {	
+			valid = true;
+			System.out.println("format : [variabel];[operator];[determine value];[Join Table];[Table Name]");
+			System.out.println("example : name;=;kevin;true;Team");
+			System.out.println("operator list:");
+			System.out.println("1. '=' 	: equal");
+			System.out.println("2. '$' 	: contain");
+			System.out.println("3. '1' 	: only one");
+			System.out.print("add condition, separate by semicolon. \n>> ");
+			String query = scan.nextLine();
+			String temp[] = query.split(";");
+			variable = temp[0];
+			operator = temp[1];
+			value = temp[2];
+			join = temp[3];
+			table = temp[4];
+			if (join.equalsIgnoreCase("False") && table != null) {
+				System.out.println("Invalid input: If join is 'false', the table should be null.");
+				valid = false;
+			}
+		}while(!valid);
 		String[] queue = {operator, value};
 		Boolean gabung = false;
 		if(join.equalsIgnoreCase("True")) {
@@ -36,7 +45,11 @@ public abstract class Repository {
 		else if(join.equalsIgnoreCase("False")) {
 			gabung = false;
 		}
-		list = (ArrayList<Object>) userRepository.find(variable, queue, gabung, table, null);
+		if(context.equalsIgnoreCase("User")) {			
+			list = (ArrayList<Object>) userRepository.find(variable, queue, gabung, table, null);
+		} else {
+			list = (ArrayList<Object>) teamRepository.find(variable, queue, gabung, table, null);
+		}
 	}
 	
 	public static void show(String context) {
@@ -49,7 +62,7 @@ public abstract class Repository {
 			switch (choices) {
 			case 1:
 				condition = true;
-				query();
+				query(context);
 				if (!list.isEmpty()) {
 			        for (Object result : list) {
 			            System.out.println(result);
