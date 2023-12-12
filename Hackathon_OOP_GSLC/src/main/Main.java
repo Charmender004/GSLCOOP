@@ -32,7 +32,7 @@ public class Main {
 
 				case 2:
 					rightInput = true;
-					userRepository.show("Team");
+					teamRepository.show("Team");
 					break;
 				}
 				if(rightInput) {

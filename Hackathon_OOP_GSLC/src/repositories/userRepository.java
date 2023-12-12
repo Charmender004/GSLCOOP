@@ -16,10 +16,12 @@ public class userRepository extends Repository{
 	public static ArrayList<User> users = new ArrayList<>();
 	static Scanner scan = Main.scan;
 	
-	public static Object find(String variable, String[]query, String tableJoinName, Connection con) {
+	
+	public static Object find(String variable, String[]query,Boolean join, String tableJoinName, Connection con) {
 		if(!condition) {
 			return users;
 		}
+		ArrayList<String> contain = new ArrayList<String>();
 		BufferedReader baca;
 		try {
 			baca = new BufferedReader(new FileReader("user.csv"));
@@ -28,9 +30,9 @@ public class userRepository extends Repository{
 			String benchmark = null;
 			while((read = baca.readLine())!=null) {
 				String temp[] = read.split(",");
-				String nama = temp[1];
-				String nim = temp[0];
-				String teamID = temp[2];
+				String nama = temp[1].trim();
+				String nim = temp[0].trim();
+				String teamID = temp[2].trim();
 				switch (variable) {
 				case "name":
 					benchmark = nama;
@@ -45,22 +47,35 @@ public class userRepository extends Repository{
 				switch (query[0]) {
 				case "$":
 					if(benchmark.toLowerCase().contains(query[1].toLowerCase())) {
-						
+						if(join == false) {							
+							contain.add(nama + ";" + nim + ";" + teamID);
+						}
+						else if(join == true) {
+							Team teamIndex = teams.get(Integer.parseInt(teamID));
+							contain.add(nama + ";" + nim + ";" + teamID + ";" + teamIndex.getNama());
+						}
 					}
 					break;
 
 				case "=":
-					if(benchmark.toLowerCase() == query[1].toLowerCase()) {
-						
+					if(benchmark.toLowerCase().equals(query[1].toLowerCase())) {
+						if(join == false) {							
+							contain.add(nama + ";" + nim + ";" + teamID);
+						}
+						else if(join == true) {
+							Team teamIndex = teams.get(Integer.parseInt(teamID));
+							contain.add(nama + ";" + nim + ";" + teamID + ";" + teamIndex.getNama());
+						}
 					}
 					break;
+				
 				}
 			}
 			baca.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return users;
+		return contain;
 	}
 	
 	public static void insert(String[] userAttribute, Connection ci) {
