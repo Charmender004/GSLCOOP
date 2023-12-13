@@ -99,6 +99,9 @@ public class teamRepository extends Repository{
 						}
 					}
 					break;
+					
+				case "1":
+					return teams;
 				
 				}
 			}

@@ -15,7 +15,7 @@ public abstract class Repository {
 	
 	private static void query(String context) {
 		Boolean valid;
-		String variable, operator, value, join, table;
+		String variable, operator, value, join = null, table = null;
 		do {	
 			valid = true;
 			System.out.println("format : [variabel];[operator];[determine value];[Join Table];[Table Name]");
@@ -30,12 +30,49 @@ public abstract class Repository {
 			variable = temp[0];
 			operator = temp[1];
 			value = temp[2];
-			join = temp[3];
-			table = temp[4];
+			if (temp.length > 3) {
+			    join = temp[3];
+			}
+
+			if(temp[3].equalsIgnoreCase("true")) {
+				if (temp.length > 4) {
+					table = temp[4];
+				}
+			}
+			System.out.println(table);
+			System.out.println("a");
+			if(table == null) {
+				
+				System.out.println("null");
+			}
 			if (join.equalsIgnoreCase("False") && table != null) {
 				System.out.println("Invalid input: If join is 'false', the table should be null.");
 				valid = false;
 			}
+			if (variable == null && query == null && join == null && table == null) {
+		        System.out.println("Error: All filter conditions are null.");
+		        valid = false;
+		    }
+			if ((variable == null && query != null) || (variable != null && query == null)) {
+		        System.out.println("Error: Filter condition mismatch - variable and query should either both be null or both not be null.");
+		        valid = false;
+		    }
+			if ((table == null && join.equalsIgnoreCase("true")) || (table != null && join == null)) {
+		        System.out.println("Error: Join condition mismatch - tableJoinName and join should either both be null or both not be null.");
+		        valid = false;
+		    }
+			if (variable != null && variable.isEmpty()) {
+				System.out.println("Error: Variable cannot be an empty string.");
+			    valid = false;
+			}
+			if (query != null && query.length() == 0) {
+		        System.out.println("Error: Query array cannot be an empty array.");
+		        valid = false;
+		    }
+			if (table != null && table.isEmpty()) {
+		        System.out.println("Error: TableJoinName cannot be an empty string.");
+		        valid = false;
+		    }
 		}while(!valid);
 		String[] queue = {operator, value};
 		Boolean gabung = false;

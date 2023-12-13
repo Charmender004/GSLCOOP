@@ -69,6 +69,9 @@ public class userRepository extends Repository{
 					}
 					break;
 				
+				case "1":
+					return users;
+				
 				}
 			}
 			baca.close();
